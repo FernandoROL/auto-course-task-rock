@@ -1,4 +1,4 @@
-# Udemy task generator for rock.so
+# Course task generator for rock.so
 
 App to automatically create tasks with section checklist and course description using the Udemy API
 
