@@ -1,0 +1,30 @@
+{
+  "name": "auto-udemy-task",
+  "version": "1.0.0",
+  "description": "Udemy course task creating for rock.so",
+  "keywords": [
+    "study",
+    "node",
+    "udemy",
+    "course",
+    "rock.so"
+  ],
+  "homepage": "https://github.com/FernandoROL/auto-course-task-rock#readme",
+  "bugs": {
+    "url": "https://github.com/FernandoROL/auto-course-task-rock/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FernandoROL/auto-course-task-rock.git"
+  },
+  "license": "ISC",
+  "author": "FernandoROL",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.8.4"
+  }
+}
