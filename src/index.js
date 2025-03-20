@@ -1,6 +1,6 @@
-import { axiosRequestConfig } from "./axios.config.js"
+import { axiosConfig } from "./axios.config.js"
 
-const response = await axiosRequestConfig(1108858)
+const response = await axiosConfig(1108858)
 
 const parsedData = () => {
     const resArr = response.data.results
