@@ -1,18 +1,53 @@
-import { axiosConfig } from "./axios.config.js"
+import { axiosConfigChapters, axiosConfigDescription } from "./axios.config.js"
 
-const response = await axiosConfig(1108858)
+function linkProcesser(link) {
+    if (link.slice(-1) === "/") {
+        link = link.slice(0, -1)
+    }
+    return link.split('/').pop()
+}
 
-const parsedData = () => {
-    const resArr = response.data.results
+function parseCourseData(response) {
+    const courseDesc = {
+        url: "http://udemy.com" + response.url,
+        id: response.id,
+        title: response.title,
+        instructors: response.visible_instructors.map(item => {
+            return item.title
+        })
+    }
 
-    const filterChapter = resArr.filter(item => item._class === 'chapter')
+    return courseDesc
+}
+
+function chaptersParsedData(respose) {
+    const responseArray = respose.results
+
+    const filterChapter = responseArray.filter(item => item._class === 'chapter')
 
     let chapterNames = []
-    for(const item in filterChapter) {
-        chapterNames.push(filterChapter[item]['title'])
+    for (const item in filterChapter) {
+        const nameSection = "Section: " + filterChapter[item]['title']
+        chapterNames.push(nameSection)
     }
 
     return chapterNames
 }
 
-console.log(parsedData())
+const courseURL = process.argv[2]
+
+const axiosResponseMain = await axiosConfigDescription(linkProcesser(courseURL))
+
+if (!axiosResponseMain) {
+    console.log("Check if the course link is valid... Do not keep the course coupon code in the link")
+} else {
+    const courseID = axiosResponseMain.id
+
+    const axiosResponseChapters = await axiosConfigChapters(courseID)
+
+    const courseChapterArray = chaptersParsedData(axiosResponseChapters)
+    const courseDescriptionMain = parseCourseData(axiosResponseMain)
+
+    console.log(courseDescriptionMain)
+    console.log(courseChapterArray)
+}
