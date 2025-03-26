@@ -2,6 +2,9 @@ import { axiosConfigChapters, axiosConfigDescription } from "./axios.config.js"
 import readline from "readline"
 import { RockApi } from 'rock.so-sdk';
 
+// processing watchers env string to an array
+const watchersList = process.env.ROCK_WATCHER_LIST.split(", ")
+
 // Authenticating rock bot
 const rockApi = process.env.ROCK_BOT_API_KEY ? new RockApi(process.env.ROCK_BOT_API_KEY) : (() => {
     console.log("The Rock.so bot token was not set...")
@@ -54,7 +57,7 @@ function chaptersParsedData(respose) {
         chapterNames.push(nameSection)
         numbered++
     }
-    
+
     const filterLectures = responseArray.filter(item => item._class === 'lecture')
     
     const lectureQauntity = filterLectures.length
@@ -100,7 +103,7 @@ if (!axiosResponseMain) {
 𝗟𝗮𝗻𝗴𝘂𝗮𝗴𝗲: ${courseDescriptionMain.locale}
 𝗟𝗲𝗰𝘁𝘂𝗿𝗲𝘀: ${lectureQauntity}
 𝗧𝗼𝘁𝗮𝗹 𝘃𝗶𝗱𝗲𝗼 𝘁𝗶𝗺𝗲: ${inputVideoTime}h
-𝗜𝗻𝘀𝘁𝗿𝘂𝗰𝘁𝗼𝗿(𝘀): ${courseDescriptionMain.instructors}
+𝗜𝗻𝘀𝘁𝗿𝘂𝗰𝘁𝗼𝗿(𝘀): ${instructors}
 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝗶𝗲𝘀:
 
 𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀 𝗮𝗻𝗱 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗲𝘀: 
@@ -111,7 +114,7 @@ if (!axiosResponseMain) {
         owners: [process.env.ROCK_USER_ID],
         checkList: courseChapterArray,
         labels: ["CURSO"],
-        watchersIds: process.env.ROCK_WATCHER_LIST,
+        watchers: watchersList,
     }
 
     console.log("\n\nHow the course is going to look:\n")
@@ -119,8 +122,6 @@ if (!axiosResponseMain) {
     console.log("𝗧𝗮𝘀𝗸 𝘁𝗶𝘁𝗹𝗲: " + "'" + courseDescriptionMain.title + "'\n")
     console.log("𝗧𝗮𝘀𝗸 𝗱𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻:\n")
     console.log(taskPayload.body[0].text)
-
-
 
     const answer = await askQuestion('Is the information on the task correct?\n\n Want to confirm the task creation? (Y/n) \n -> ');
     const normalized = answer.trim().toLowerCase();
@@ -131,7 +132,8 @@ if (!axiosResponseMain) {
             console.log("\n\n---------- Task creation successful! ----------\n\n")
             console.log("\n\nRemember to always update your course description and checklist!!\n\n")
         } catch (error) {
-            console.error("\n\nThere was an error creating your task:", error.message + "\n\n");
+            console.error("\n\nThere was an error creating your task:", error.message);
+            console.error("Check if every watcher is in the space the task is being created...\n\n")
         }
     } else {
         console.log("\n\n---------- Task creation canceled! ----------\n\n")
