@@ -14,6 +14,8 @@ App to automatically create tasks with section checklist and course description 
 
 ## Installation
 
+### Getting rock.so user IDs - https://youtu.be/5BdQ86XhRUA
+
 ### 1. Clone the ropository and intall dependencies
 
 ```
