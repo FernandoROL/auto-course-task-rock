@@ -47,12 +47,14 @@ function chaptersParsedData(respose) {
 
     const filterChapter = responseArray.filter(item => item._class === 'chapter')
 
+    let numbered = 1
     let chapterNames = []
     for (const item in filterChapter) {
-        const nameSection = "Section: " + filterChapter[item]['title']
+        const nameSection = `Sectio ${numbered}: ` + filterChapter[item]['title']
         chapterNames.push(nameSection)
+        numbered++
     }
-
+    
     const filterLectures = responseArray.filter(item => item._class === 'lecture')
     
     const lectureQauntity = filterLectures.length
