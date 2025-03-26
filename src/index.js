@@ -53,7 +53,7 @@ function chaptersParsedData(respose) {
     let numbered = 1
     let chapterNames = []
     for (const item in filterChapter) {
-        const nameSection = `Sectio ${numbered}: ` + filterChapter[item]['title']
+        const nameSection = `Section ${numbered}: ` + filterChapter[item]['title']
         chapterNames.push(nameSection)
         numbered++
     }
