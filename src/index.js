@@ -120,10 +120,10 @@ if (!axiosResponseMain) {
 
 
 
-    const answer = await askQuestion('Is the information on the task correct?\n\n Want to confirm the task creation? (y/N) \n -> ');
+    const answer = await askQuestion('Is the information on the task correct?\n\n Want to confirm the task creation? (Y/n) \n -> ');
+    const normalized = answer.trim().toLowerCase();
 
-
-    if (answer.toLowerCase() === "y" || answer.toLowerCase() === "yes") {
+    if (normalized === '' || normalized === 'y' || normalized === 'yes') {
         try {
             await rockApi.createTask(taskPayload);
             console.log("\n\n---------- Task creation successful! ----------\n\n")

@@ -13,7 +13,7 @@ export const axiosConfigChapters = async (courseID) => {
 
         return response.data
     } catch (err) {
-        console.log(`Failed to get course data...`)
+        console.error(`Failed to get course data: ${err}`)
         return null
     }
 }
@@ -27,7 +27,7 @@ export const axiosConfigDescription = async (courseID) => {
 
         return response.data
     } catch (err) {
-        console.log(`Failed to get course data...`)
+        console.error(`Failed to get course data: ${err}`)
         return null
     }
 }
